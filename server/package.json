@@ -1,0 +1,19 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "Backend Todo ",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zamisyh/mern-todo.git"
+  },
+  "author": "Zamzam Saputra",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zamisyh/mern-todo/issues"
+  },
+  "homepage": "https://github.com/zamisyh/mern-todo#readme"
+}
