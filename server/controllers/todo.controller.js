@@ -41,3 +41,22 @@ exports.getTask = async (req, res, next) => {
         console.log(`${err}`.red.bold)
     }
 }
+// @desc get all task
+// @route /api/v1/task/
+// @access Private by user
+
+exports.getAllTask = async (req, res, next) => {
+    try{
+        await Task.find().sort({'_id': -1})
+            .then((result) => {
+                res.status(200).json(result);
+            }).catch((err) => {
+                res.status(500).json({
+                    status: 500,
+                    message: err
+                })
+            });
+    }catch(err){
+        console.log(`${err}`.red.bold)
+    }
+}
