@@ -43,7 +43,7 @@ exports.getTask = async (req, res, next) => {
 }
 // @desc get all task
 // @route /api/v1/task/
-// @access Private by user
+// @access Public
 
 exports.getAllTask = async (req, res, next) => {
     try{
@@ -56,6 +56,30 @@ exports.getAllTask = async (req, res, next) => {
                     message: err
                 })
             });
+    }catch(err){
+        console.log(`${err}`.red.bold)
+    }
+}
+
+// @desc delete task
+// @route /api/v1/task/
+// @access Private with token
+
+exports.removeTask = async (req, res) => {
+    try{
+        await Task.findByIdAndDelete({'_id': req.body.id})
+            .then((data) => {
+                res.status(200).json({
+                    status: 200,
+                    message: "Sucessfully delete task",
+                    data: data
+                })
+            }).catch((err) => {
+                res.status(400).json({
+                    status: 400,
+                    message: "Invalid id or no data found!"
+                })
+            })
     }catch(err){
         console.log(`${err}`.red.bold)
     }
