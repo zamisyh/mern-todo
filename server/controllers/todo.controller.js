@@ -77,7 +77,7 @@ exports.removeTask = async (req, res) => {
             }).catch((err) => {
                 res.status(400).json({
                     status: 400,
-                    message: "Invalid id or no data found!"
+                    message: "Invalid params id or no data found!"
                 })
             })
     }catch(err){
