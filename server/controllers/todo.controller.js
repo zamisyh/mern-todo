@@ -2,6 +2,7 @@ const Task = require('../models/todo.models')
 
 // @desc add task
 // @route /api/v1/task
+// @method POST
 // @access Public
 
 exports.addTask = async (req, res, next) => {
@@ -24,6 +25,7 @@ exports.addTask = async (req, res, next) => {
 
 // @desc get task by user_id
 // @route /api/v1/task/user_id
+// @method GET
 // @access Private by user
 
 exports.getTask = async (req, res, next) => {
@@ -43,6 +45,7 @@ exports.getTask = async (req, res, next) => {
 }
 // @desc get all task
 // @route /api/v1/task/
+// @method GET
 // @access Public
 
 exports.getAllTask = async (req, res, next) => {
@@ -63,6 +66,7 @@ exports.getAllTask = async (req, res, next) => {
 
 // @desc delete task
 // @route /api/v1/task/
+// @method DELETE
 // @access Private with token
 
 exports.removeTask = async (req, res) => {
@@ -84,3 +88,30 @@ exports.removeTask = async (req, res) => {
         console.log(`${err}`.red.bold)
     }
 }
+
+// @desc update task
+// @route /api/v1/task
+// @method UPDATE
+// @access Private with token
+
+exports.updateTask = async (req, res) => {
+    try{
+        await Task.findOneAndUpdate({_id: req.params.user_id}, {
+            title: req.body.title,
+            date: req.body.date
+        }).then((data) => {
+            res.status(201).json({
+                status: 200,
+                message: "Sucesfully update task",
+            })
+        }).catch((err) => {
+            res.status(400).json({
+                status: 400,
+                message: "Invalid params id or no data found!"
+            })
+        })
+    }catch(error){
+        console.log(`${error}`.red.bold)
+    }
+}
+

@@ -5,6 +5,7 @@ const http = require('http');
 const path = require('path');
 const env = require('dotenv');
 const mongoose = require('mongoose');
+const joi = require('joi');
 
 
 module.exports = {
@@ -14,5 +15,6 @@ module.exports = {
     http,
     path,
     env,
-    mongoose
+    mongoose,
+    joi
 }
