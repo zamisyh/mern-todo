@@ -28,3 +28,18 @@ exports.userRegister = async(req, res, next) => {
         console.log(error);
     }
 }
+
+exports.userFindAll = async (req, res, next) => {
+    try{
+        await User.find().select("-password").then((result) => {
+            res.status(200).json(result)
+        }).catch((err) => {
+            res.status(422).json({
+                status: 422,
+                message: "Something wrong"
+            })
+        })
+    }catch(err){
+        console.log(`${err}`.red)
+    }
+}
