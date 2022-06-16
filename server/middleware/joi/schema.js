@@ -15,3 +15,8 @@ exports.userRegister = joi.object().keys({
     password: joi.string().required(),
     confirm_password: joi.string().required().valid(joi.ref('password'))
 })
+
+exports.userLogin = joi.object().keys({
+    email: joi.string().required().email(),
+    password: joi.string().required()
+})

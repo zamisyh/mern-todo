@@ -18,7 +18,9 @@ const protectRoute = asyncHandler(async (req, res, next) => {
             next();
 
         }catch(err){
-            console.log(`${err}`.red.bold)
+           res.status(500).json({
+               message: err.message
+           });
         }
     }
 

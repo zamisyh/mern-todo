@@ -1,4 +1,4 @@
-const { updateTask, updateMark, userRegister } = require('./schema')
+const { updateTask, updateMark, userRegister,userLogin } = require('./schema')
 
 exports.updateTaskList = (req, res, next) => {
     const { result, error } = updateTask.validate(req.body);
@@ -12,5 +12,10 @@ exports.updateMarkList = (req, res, next) => {
 
 exports.userRegisterList = (req, res, next) => {
     const { result, error } = userRegister.validate(req.body);
+    (error === undefined) ? next() : res.send({message: error}).status(304);
+}
+
+exports.userLoginList = (req, res, next) => {
+    const { result, error } = userLogin.validate(req.body);
     (error === undefined) ? next() : res.send({message: error}).status(304);
 }
