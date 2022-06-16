@@ -90,7 +90,7 @@ exports.removeTask = async (req, res) => {
 }
 
 // @desc update task
-// @route /api/v1/task
+// @route /api/v1/task/id
 // @method UPDATE
 // @access Private with token
 
@@ -103,6 +103,31 @@ exports.updateTask = async (req, res) => {
             res.status(201).json({
                 status: 200,
                 message: "Sucesfully update task",
+            })
+        }).catch((err) => {
+            res.status(400).json({
+                status: 400,
+                message: "Invalid params id or no data found!"
+            })
+        })
+    }catch(error){
+        console.log(`${error}`.red.bold)
+    }
+}
+
+// @desc update mark
+// @route /api/v1/task/id
+// @method UPDATE
+// @access Private with token
+
+exports.updateMark = async (req, res) => {
+    try{
+        await Task.findOneAndUpdate({_id: req.params.user_id}, {
+           mark: req.body.mark
+        }).then((data) => {
+            res.status(201).json({
+                status: 200,
+                message: "Sucesfully update mark",
             })
         }).catch((err) => {
             res.status(400).json({
