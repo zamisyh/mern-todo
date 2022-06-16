@@ -8,6 +8,7 @@ const mongoose = require('mongoose');
 const joi = require('joi');
 const jwt = require('jsonwebtoken');
 const asyncHandler = require('express-async-handler')
+const bcrypt = require('bcrypt')
 
 
 module.exports = {
@@ -20,5 +21,6 @@ module.exports = {
     mongoose,
     joi,
     jwt,
-    asyncHandler
+    asyncHandler,
+    bcrypt
 }

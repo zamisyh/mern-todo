@@ -8,3 +8,10 @@ exports.updateTask = joi.object().keys({
 exports.updateMark = joi.object().keys({
     mark: joi.binary().required()
 })
+
+exports.userRegister = joi.object().keys({
+    name: joi.string().required(),
+    email: joi.string().email().exist().required(),
+    password: joi.string().required(),
+    confirm_password: joi.string().required().valid(joi.ref('password'))
+})
