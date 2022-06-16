@@ -6,6 +6,8 @@ const path = require('path');
 const env = require('dotenv');
 const mongoose = require('mongoose');
 const joi = require('joi');
+const jwt = require('jsonwebtoken');
+const asyncHandler = require('express-async-handler')
 
 
 module.exports = {
@@ -16,5 +18,7 @@ module.exports = {
     path,
     env,
     mongoose,
-    joi
+    joi,
+    jwt,
+    asyncHandler
 }
