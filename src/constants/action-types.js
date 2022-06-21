@@ -11,5 +11,6 @@ export const AuthActionTypes = {
 
 export const TaskActionTypes = {
     GET_ALL_TASK: "GET_ALL_TASK",
-    DELETE_TASK: "DELETE_TASK"
+    DELETE_TASK: "DELETE_TASK",
+    ADD_TASK: "ADD_TASK"
 }

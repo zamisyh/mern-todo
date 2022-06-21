@@ -16,6 +16,11 @@ export const taskReducer = (state = initalState, {type, payload}) => {
                     task => task._id !== payload
                 )
             } 
+        case TaskActionTypes.ADD_TASK:
+            return {
+                ...state,
+                task: [ ...state.task, payload ]
+            }
         default:
             return state
     }
