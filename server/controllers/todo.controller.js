@@ -71,7 +71,7 @@ exports.getAllTask = async (req, res, next) => {
 
 exports.removeTask = async (req, res) => {
     try{
-        await Task.findByIdAndDelete({'_id': req.body.id})
+        await Task.findByIdAndDelete({'_id': req.params.id})
             .then((data) => {
                 res.status(200).json({
                     status: 200,
@@ -85,7 +85,7 @@ exports.removeTask = async (req, res) => {
                 })
             })
     }catch(err){
-        console.log(`${err}`.red.bold)
+        console.log(`${err.message}`.red.bold)
     }
 }
 

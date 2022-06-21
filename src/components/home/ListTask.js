@@ -1,10 +1,11 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { actionGetAllTask } from '../../actions/taskAction'
+import { actionDeleteTask, actionGetAllTask } from '../../actions/taskAction'
 import { useEffect } from 'react'
-import { getAllTask } from '../../services/task.service'
-import moment from 'moment'
+import { deleteTask, getAllTask } from '../../services/task.service'
 import Moment from 'react-moment'
+import swal from 'sweetalert'
+import axios from 'axios'
 
 const ListTask = () => {
   const dispatch = useDispatch()
@@ -22,6 +23,32 @@ const ListTask = () => {
   }, [])
 
   const tasks = useSelector((state) => state.TASK.task)
+
+  const deleteTaskId = async (id) => {
+    const response = await deleteTask(id).catch((err) => {
+      console.log(err)
+    })
+
+    dispatch(actionDeleteTask(id))
+  }
+
+  const handleDelete = (id) => {
+    swal({
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover this imaginary file!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+            deleteTaskId(id)
+          swal("Poof! Your imaginary file has been deleted!", {
+            icon: "success",
+          });
+        }
+    });
+  }
 
   const renderList = tasks.map((task) => {
     const { _id, title, date, mark, user_id, createdAt } = task
@@ -56,7 +83,7 @@ const ListTask = () => {
                   />
                 </svg>
               </span>
-              <span>
+              <span onClick={() => handleDelete(_id)}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
@@ -78,7 +105,7 @@ const ListTask = () => {
   return (
     <div className="mt-10 lg:ml-10 lg:mt-0">
       <h2 className="mt-2 text-2xl font-semibold text-gray-800">List Task</h2>
-      {renderList !== undefined ? renderList : "No Data Found"}
+      {renderList === undefined ? "No Data Found" : renderList}
     </div>
   )
 }
