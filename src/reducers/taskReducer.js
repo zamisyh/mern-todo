@@ -21,7 +21,30 @@ export const taskReducer = (state = initalState, {type, payload}) => {
                 ...state,
                 task: [ ...state.task, payload ]
             }
+        case TaskActionTypes.UPDATE_TASK: 
+            return state.task.map((data) => {
+                if (data.id === payload.id) {
+                return {
+                    ...data,
+                    ...payload,
+                };
+                } else {
+                return data;
+                }
+            });
         default:
             return state
+    }
+}
+
+export const selectedTaskReducer = (state = {}, {type, payload}) => {
+    switch (type) {
+        case TaskActionTypes.GET_TASK_ID:
+            return {
+                ...state,
+                ...payload
+            }
+        default:
+            return state;
     }
 }

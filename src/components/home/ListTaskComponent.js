@@ -2,12 +2,16 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Moment from 'react-moment'
 import swal from 'sweetalert'
-import { deleteTask } from '../../services/task.service'
-import { actionDeleteTask } from '../../actions/taskAction'
+import { deleteTask, getTaskId } from '../../services/task.service'
+import { actionDeleteTask, actionGetTaskId } from '../../actions/taskAction'
+import { useState } from 'react'
 
 const ListTaskComponent = () => {
   const dispatch = useDispatch()
   const tasks = useSelector((state) => state.TASK.task)
+  const [ taskId, setTaskId ] = useState('');
+  const [ title, setTitle ] = useState('')
+  const [ date, setDate ] = useState('')
 
   const deleteTaskId = async (id) => {
     const response = await deleteTask(id).catch((err) => {
@@ -32,6 +36,18 @@ const ListTaskComponent = () => {
       }
     })
   }
+
+  const handleUpdate = async (id) => {
+    try{
+      const response = await getTaskId("task_id", {id: id})
+      dispatch(actionGetTaskId(response.data))
+      
+    }catch(err){
+      console.log(err)
+    }
+  }
+
+  
   const renderList = tasks.map((task, id) => {
     return (
       <div key={id} className="p-5 px-8 py-4 mt-5 transition duration-300 ease-in-out delay-150 bg-white shadow-xl w-96 rounded-xl hover:-translate-y-1 hover:scale-180 hover:bg-slate-100">
@@ -48,7 +64,7 @@ const ListTaskComponent = () => {
                   className="w-4 h-4 mt- checked:bg-blue-500"
                 />
               </span>
-              <span>
+              <span onClick={() => handleUpdate(task._id)}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
@@ -85,7 +101,11 @@ const ListTaskComponent = () => {
   return (
     <div className="mt-10 lg:ml-10 lg:mt-0">
       <h2 className="mt-2 text-2xl font-semibold text-gray-800">List Task</h2>
-      {renderList}
+       {Object.keys(renderList).length === 0 ? (
+         <div>Loading ...</div>
+       ) : (
+         renderList
+       )}
     </div>
   )
 }

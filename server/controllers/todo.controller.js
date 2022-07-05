@@ -115,6 +115,28 @@ exports.updateTask = async (req, res) => {
     }
 }
 
+// @desc get task by id
+// @route /api/v1/task/id
+// @method GET
+// @access Private with token
+
+exports.getTaskById = async (req, res, next) => {
+    try{
+        await Task.findOne({'_id': req.body.id})
+            .then((result) => {
+                res.status(200).json(result);
+            }).catch((err) => {
+                res.status(500).json({
+                    status: 500,
+                    message: err
+                })
+            });
+    }catch(err){
+        console.log(`${err}`.red.bold)
+    }
+}
+
+
 // @desc update mark
 // @route /api/v1/task/id
 // @method UPDATE
